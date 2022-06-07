@@ -36,7 +36,7 @@ $container = $containerBuilder->build();
 // Instantiate the app
 AppFactory::setContainer($container);
 $app = AppFactory::create();
-//TODO Cambiar en local a apipapime/public
+//TODO Cambiar en local a /apipapime/public
 $app->setBasePath("/public");
 $callableResolver = $app->getCallableResolver();
 
