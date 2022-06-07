@@ -14,10 +14,15 @@ class DemoController{
         $db = new DBController();
         $conexion = $db->getConexion();
 
-
+        $query = $conexion->query("SELECT * FROM admin");
         $professor = new Professor();
-        $professor->name = "HI PAPIME!";
-        $professor->last_name = "TEEEEST HEROKU";
+
+        if($query){
+            while($row = mysqli_fetch_array($query)){
+                $professor->name = $row['name'];
+                $professor->last_name = $row['last_name'];
+            }
+        }
 
         return $professor;
     }
