@@ -4,7 +4,7 @@ declare(strict_types=1);
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
-use App\Application\Actions\Controllers\DemoController as Demo;
+use App\Application\Actions\Controllers\LoginController as Login;
 
 return function (App $app) {
 
@@ -13,17 +13,17 @@ return function (App $app) {
         return $response;
     });
 
-    $app->get('/decryptToken', function(Request $request, Response $response){
-        $data = Demo::decryptToken($request->getQueryParams("token")['token']);
-        $response->getBody()->write(json_encode($data));
+    $app->get('/test', function(Request $request, Response $response){
+        //$data = Demo::decryptToken($request->getQueryParams("token")['token']);
+        $response->getBody()->write(json_encode("OK"));
 
         return $response->withStatus(200);
     });
 
-    $app->get('/generateToken', function (Request $request, Response $response) {
-        $data = Demo::getToken(5, "Demo");
-
+    $app->post('/admin/login', function (Request $request, Response $response) {
+        $data = Login::loginAdmin($request->getParsedBody()['user'], $request->getParsedBody()['password']);
         $response->getBody()->write(json_encode($data));
-        return $response->withStatus(200);
+        return $response->withStatus($data['response_code']);
     });
+
 };

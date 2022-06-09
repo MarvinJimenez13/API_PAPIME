@@ -4,10 +4,10 @@
 
 class DBController{
 
-    public $DB_HOST = "162.241.62.137"; 
-    public $DB_USUARIO = "comer208"; 
-    public $DB_CONTRASENA = "gus750819";
-    public $DB = "comer208_papime";
+    public $DB_HOST = "162.241.62.137"; //162.241.62.137
+    public $DB_USUARIO = "comer208"; //comer208
+    public $DB_CONTRASENA = "gus750819"; //gus750819
+    public $DB = "comer208_papime"; //comer208_papime
     public $CHARSET = "UTF8";
     public $conexion;
 
@@ -17,7 +17,7 @@ class DBController{
             return "Error en la conexión: ". mysqli_connect_error();
 
         mysqli_set_charset($this->conexion, $this->CHARSET);
-        mysqli_select_db($this->conexion, $this->DB) or die("Error");
+        mysqli_select_db($this->conexion, $this->DB) or die("Error en la conexion");
         
          return $this->conexion;
     }

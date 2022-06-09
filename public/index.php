@@ -38,6 +38,7 @@ AppFactory::setContainer($container);
 $app = AppFactory::create();
 //TODO Cambiar en local a /apipapime/public
 $app->setBasePath("/public");
+$app->addBodyParsingMiddleware();
 $callableResolver = $app->getCallableResolver();
 
 // Register middleware
