@@ -4,9 +4,9 @@
 
 class DBController{
 
-    public $DB_HOST = "162.241.62.137"; //162.241.62.187
-    public $DB_USUARIO = "comer208"; //urvanmx
-    public $DB_CONTRASENA = "gus750819";//Uvt200430*
+    public $DB_HOST = "162.241.62.137"; 
+    public $DB_USUARIO = "comer208"; 
+    public $DB_CONTRASENA = "gus750819";
     public $DB = "comer208_papime";
     public $CHARSET = "UTF8";
     public $conexion;

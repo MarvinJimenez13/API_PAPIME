@@ -13,9 +13,15 @@ return function (App $app) {
         return $response;
     });
 
-    $app->get('/test', function (Request $request, Response $response) {
-        
-        $data = Demo::getDemoModel();
+    $app->get('/decryptToken', function(Request $request, Response $response){
+        $data = Demo::decryptToken($request->getQueryParams("token")['token']);
+        $response->getBody()->write(json_encode($data));
+
+        return $response->withStatus(200);
+    });
+
+    $app->get('/generateToken', function (Request $request, Response $response) {
+        $data = Demo::getToken(5, "Demo");
 
         $response->getBody()->write(json_encode($data));
         return $response->withStatus(200);
