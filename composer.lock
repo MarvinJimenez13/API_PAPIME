@@ -3030,7 +3030,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "7.2.33",
+        "php": "7.3.24",
         "ext-json": "*"
     },
     "platform-dev": [],
