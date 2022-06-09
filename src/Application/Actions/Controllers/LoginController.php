@@ -34,7 +34,7 @@ class LoginController{
             }else
                 LoginController::$response = ResponseBody::setResponse(null, Constants::$ERROR_DB, ResponseBody::$INTERNAL_SERVER_ERROR);
         }else
-            LoginController::$response = ResponseBody::setResponse(null, Constants::$ERROR_REQUEST, ResponseBody::$BAD_REQUEST);
+            LoginController::$response = ResponseBody::setResponse($user, Constants::$ERROR_REQUEST, ResponseBody::$BAD_REQUEST);
         
         return LoginController::$response;
     }
