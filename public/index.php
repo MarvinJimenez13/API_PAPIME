@@ -9,6 +9,7 @@ use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 
+
 require __DIR__ . '/../vendor/autoload.php';
 
 // Instantiate PHP-DI ContainerBuilder
@@ -39,6 +40,8 @@ $app = AppFactory::create();
 //TODO Cambiar en local a /apipapime/public y comentar Parsing
 $app->setBasePath("/public");
 //$app->addBodyParsingMiddleware();
+$app->addRoutingMiddleware();
+$app->add(new Tuupola\Middleware\CorsMiddleware);
 $callableResolver = $app->getCallableResolver();
 
 // Register middleware
