@@ -134,7 +134,7 @@
                 "shasum": ""
             },
             "require": {
-                "php": "7.2.33",
+                "php": "7.3.24",
                 "psr/log": "^1.0.1 || ^2.0 || ^3.0"
             },
             "provide": {
@@ -3286,7 +3286,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "7.2.33",
+        "php": "7.3.24",
         "ext-json": "*"
     },
     "platform-dev": [],
