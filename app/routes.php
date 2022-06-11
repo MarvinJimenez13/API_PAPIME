@@ -33,6 +33,10 @@ return function (App $app) {
     $app->post('/admin/login', function (Request $request, Response $response) {
         $data = Login::loginAdmin($request->getParsedBody()['user'], $request->getParsedBody()['password']);
         $response->getBody()->write(json_encode($data));
+        $response
+        ->withHeader('Access-Control-Allow-Origin', '*')
+        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
         return $response->withStatus($data['response_code']);
     });
 
