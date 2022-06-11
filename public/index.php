@@ -41,7 +41,14 @@ $app = AppFactory::create();
 $app->setBasePath("/public");
 //$app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();
-$app->add(new Tuupola\Middleware\CorsMiddleware);
+$app->add(new Tuupola\Middleware\CorsMiddleware([
+    "origin" => ["*"],
+    "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    "headers.allow" => ['X-Requested-With, Content-Type, Accept, Origin, Authorization'],
+    "headers.expose" => [],
+    "credentials" => false,
+    "cache" => 0,
+]));
 $callableResolver = $app->getCallableResolver();
 
 // Register middleware
