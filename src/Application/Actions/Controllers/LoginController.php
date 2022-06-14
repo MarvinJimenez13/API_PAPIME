@@ -27,20 +27,20 @@ class LoginController{
                     //Crear token
                     $token = SecurityJWT::generateToken($dataRow['id_admin'], "ADMIN");
                     //Guardar token
-                    LoginController::saveTokenAdmin($token, $dataRow['id_admin']);
+                    LoginController::saveTokenAdmin($token, $dataRow['id_admin'], $conexion);
                     LoginController::$response = ResponseBody::setResponse($token, Constants::$LOGIN_SUCCESS, ResponseBody::$OK);
                 }else
                     LoginController::$response = ResponseBody::setResponse(null, Constants::$USER_NOT_FOUND, ResponseBody::$OK);
             }else
                 LoginController::$response = ResponseBody::setResponse(null, Constants::$ERROR_DB, ResponseBody::$INTERNAL_SERVER_ERROR);
         }else
-            LoginController::$response = ResponseBody::setResponse($user, Constants::$ERROR_REQUEST, ResponseBody::$BAD_REQUEST);
+            LoginController::$response = ResponseBody::setResponse(null, Constants::$ERROR_REQUEST, ResponseBody::$BAD_REQUEST);
         
         return LoginController::$response;
     }
 
-    public static function saveTokenAdmin($token, $idAdmin){
-
+    public static function saveTokenAdmin($token, $idAdmin, $conexion){
+        $saveQuery = $conexion->query("UPDATE admin SET token = '$token' WHERE id_admin = '$idAdmin'");
     }
 
 }

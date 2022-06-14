@@ -25,7 +25,7 @@ return function (App $app) {
     });
 
     $app->post('/admin/registrarProfesor', function(Request $request, Response $response){
-        $data = Admin::saveProfessor($request->getParsedBody());
+        $data = Admin::saveProfessor(json_encode($request->getParsedBody()));
         $response->getBody()->write(json_encode($data));
         return $response->withStatus($data['response_code']);
     });
