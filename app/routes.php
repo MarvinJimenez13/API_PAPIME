@@ -17,22 +17,38 @@ return function (App $app) {
                     ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     });
 
-    $app->get('/test', function(Request $request, Response $response){
-        //$data = Demo::decryptToken($request->getQueryParams("token")['token']);
-        $response->getBody()->write(json_encode("OK"));
+    $app->get('/admin/obtenerProfesores', function(Request $request, Response $response){
+        $data = Admin::getProfessors($request->getQueryParams("token")['token']);
+        $response->getBody()->write(json_encode($data));
 
-        return $response->withStatus(200);
+        return $response->withStatus($data['response_code']);
+    });
+
+    $app->put('/admin/eliminarProfesor', function(Request $request, Response $response){
+        $data = Admin::eliminarProfesor(json_encode($request->getParsedBody()));
+        $response->getBody()->write(json_encode($data));
+
+        return $response->withStatus($data['response_code']);
+    });
+
+    $app->put('/admin/actualizarProfesor', function(Request $request, Response $response){
+        $data = Admin::updateProfessor(json_encode($request->getParsedBody()));
+        $response->getBody()->write(json_encode($data));
+
+        return $response->withStatus($data['response_code']);
     });
 
     $app->post('/admin/registrarProfesor', function(Request $request, Response $response){
         $data = Admin::saveProfessor(json_encode($request->getParsedBody()));
         $response->getBody()->write(json_encode($data));
+
         return $response->withStatus($data['response_code']);
     });
 
     $app->post('/admin/login', function (Request $request, Response $response) {
         $data = Login::loginAdmin($request->getParsedBody()['user'], $request->getParsedBody()['password']);
         $response->getBody()->write(json_encode($data));
+
         return $response->withStatus($data['response_code']);
     });
 
