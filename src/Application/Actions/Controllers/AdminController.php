@@ -108,7 +108,7 @@ class AdminController{
             }else 
                 AdminController::$response = ResponseBody::setResponse(null, Constants::$ERROR_TOKEN, ResponseBody::$BAD_REQUEST);
         }else
-            AdminController::$response = ResponseBody::setResponse($data, Constants::$ERROR_REQUEST, ResponseBody::$BAD_REQUEST);
+            AdminController::$response = ResponseBody::setResponse(null, Constants::$ERROR_REQUEST, ResponseBody::$BAD_REQUEST);
     
         return AdminController::$response;
     }
