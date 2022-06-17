@@ -31,7 +31,7 @@ return function (App $app) {
         return $response->withStatus($data['response_code']);
     });
 
-    $app->patch('/admin/actualizarProfesor', function(Request $request, Response $response){
+    $app->post('/admin/actualizarProfesor', function(Request $request, Response $response){
         $data = Admin::updateProfessor(json_encode($request->getParsedBody()));
         $response->getBody()->write(json_encode($data));
 
