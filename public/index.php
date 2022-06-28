@@ -42,7 +42,7 @@ $app->setBasePath("/public");
 $app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();
 $app->add(new Tuupola\Middleware\CorsMiddleware([
-    "origin" => ["*"],
+    "origin" => ["*", "http://localhost"],
     "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     "headers.allow" => [],
     "headers.expose" => [],
