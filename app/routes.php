@@ -18,6 +18,14 @@ return function (App $app) {
                     ->withHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PATCH, PUT, OPTIONS');
     });
 
+    $app->options('/admin/eliminarProfesor', function (Request $request, Response $response) {
+        // CORS Pre-Flight OPTIONS Request Handler
+        return $response
+                    ->withHeader('Access-Control-Allow-Origin', '*')
+                    ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+                    ->withHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PATCH, PUT, OPTIONS');
+    });
+
     $app->get('/admin/obtenerProfesores', function(Request $request, Response $response){
         $data = Admin::getProfessors($request->getQueryParams("token")['token']);
         $response->getBody()->write(json_encode($data));
