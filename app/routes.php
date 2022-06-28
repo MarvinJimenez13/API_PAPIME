@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Application\Actions\Controllers\LoginController as Login;
 use App\Application\Actions\Controllers\AdminController as Admin;
+use App\Application\Actions\Controllers\PanelProfessor as Panel;
 
 return function (App $app) {
 
@@ -31,7 +32,7 @@ return function (App $app) {
         return $response->withStatus($data['response_code']);
     });
 
-    $app->post('/admin/actualizarProfesor', function(Request $request, Response $response){
+    $app->put('/admin/actualizarProfesor', function(Request $request, Response $response){
         $data = Admin::updateProfessor(json_encode($request->getParsedBody()));
         $response->getBody()->write(json_encode($data));
 
@@ -51,5 +52,16 @@ return function (App $app) {
 
         return $response->withStatus($data['response_code']);
     });
+
+
+    /*PANEL JUEGO PROFESOR*/
+
+    $app->post('/profesor/guardarJuego', function (Request $request, Response $response) {
+        $data = Panel::saveGame(json_encode($request->getParsedBody()));
+        $response->getBody()->write(json_encode($data));
+
+        return $response->withStatus($data['response_code']);
+    });
+
 
 };

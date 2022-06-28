@@ -1,0 +1,119 @@
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ0aXBvX3VzdWFyaW8iOiJBRE1JTiJ9.7zckFOcj9LApyl0BPYHpdJH5QEFOZWtMZpZAiL2l7nk",
+  "grupo": "2535",
+  "situacionEnsenanza": "Aguas Residuales",
+  "materia": "Ingenieria Civil",
+  "nombreSesion": "Demo1",
+  "game": {
+    "biblioteca": {
+      "numPreguntas": 3,
+      "tieneImagenes": true,
+      "preguntas": { //LIMTE 10 PREGUNTAS
+        "p1": {
+          "texto": "Oracion de pregunta 1",
+          "opcionMultiple": true,
+          "respuestas": {
+            "numRespuestas": 3,
+            "r1": "e471342d351a62cd15d9613e88c2b141.jpg",
+            "r2": "56a44740052714e75d71df7a94534446.jpg",
+            "r3": "650e47d533a47f14ddf94df803f45aec.jpg", //LIMITE 4 RESPUESTAS (MULTIPLE)
+            "r4": null,
+            "correcta": 1
+          }
+        },
+        "p2": {
+          "texto": "Oracion de pregunta 2",
+          "opcionMultiple": false,
+          "respuestas": {
+            "numRespuestas": 2,
+            "r1": "e471342d351a62cd15d9613e88c2b141.jpg",
+            "r2": "56a44740052714e75d71df7a94534446.jpg",
+            "r3": null,
+            "r4": null,
+            "correcta": 2
+          }
+        },
+        "p3": {
+          "texto": "Oracion de pregunta 3",
+          "opcionMultiple": true,
+          "respuestas": {
+            "numRespuestas": 4,
+            "r1": "e471342d351a62cd15d9613e88c2b141.jpg",
+            "r2": "56a44740052714e75d71df7a94534446.jpg",
+            "r3": "650e47d533a47f14ddf94df803f45aec.jpg",
+            "r4": "56a44740052714e75d71df7a94534446.jpg",
+            "correcta": 4
+          }
+        }
+      }
+    },
+    "sala2": {
+      "numPreguntas": 5,
+      "tieneImagenes": false,
+      "preguntas": {
+        "p1": {
+          "texto": "Oracion de pregunta 1",
+          "opcionMultiple": true,
+          "respuestas": {
+            "numRespuestas": 3,
+            "r1": "Opcion 1",
+            "r2": "Opcion 2",
+            "r3": "Opcion 3",
+            "r4": null,
+            "correcta": 2
+          }
+        },
+        "p2": {
+          "texto": "Oracion de pregunta 2",
+          "opcionMultiple": false,
+          "respuestas": {
+            "numRespuestas": 2,
+            "r1": "Opcion 1",
+            "r2": "Opcion 2",
+            "r3": null,
+            "r4": null,
+            "correcta": 1
+          }
+        },
+        "p3": {
+          "texto": "Oracion de pregunta 3",
+          "opcionMultiple": true,
+          "respuestas": {
+            "numRespuestas": 4,
+            "r1": "Opcion 1",
+            "r2": "Opcion 2",
+            "r3": "Opcion 3",
+            "r4": "Opcion 4",
+            "correcta": 4
+          }
+        },
+        "p4": {
+          "texto": "Oracion de pregunta 4",
+          "opcionMultiple": true,
+          "respuestas": {
+            "numRespuestas": 4,
+            "r1": "Opcion 1",
+            "r2": "Opcion 2",
+            "r3": "Opcion 3",
+            "r4": "Opcion 4",
+            "correcta": 3
+          }
+        },
+        "p5": {
+          "texto": "Oracion de pregunta 5",
+          "opcionMultiple": false,
+          "respuestas": {
+            "numRespuestas": 2,
+            "r1": "Opcion 1",
+            "r2": "Opcion 2",
+            "r3": null,
+            "r4": null,
+            "correcta": 1
+          }
+        }
+      }
+    },
+    "sala3": {},
+    "sala4": {}
+  }
+}
