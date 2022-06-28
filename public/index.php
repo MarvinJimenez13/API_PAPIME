@@ -44,7 +44,7 @@ $app->addRoutingMiddleware();
 $app->add(new Tuupola\Middleware\CorsMiddleware([
     "origin" => ["*"],
     "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    "headers.allow" => ['X-Requested-With, Content-Type, Accept, Origin, Authorization'],
+    "headers.allow" => [],
     "headers.expose" => [],
     "credentials" => false,
     "cache" => 0,
