@@ -33,7 +33,7 @@ return function (App $app) {
         return $response->withStatus($data['response_code']);
     });
 
-    $app->post('/admin/eliminarProfesor', function(Request $request, Response $response){
+    $app->put('/admin/eliminarProfesor', function(Request $request, Response $response){
         $data = Admin::eliminarProfesor(json_encode($request->getParsedBody()));
         $response->getBody()->write(json_encode($data));
 
