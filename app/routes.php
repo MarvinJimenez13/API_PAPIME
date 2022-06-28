@@ -10,7 +10,7 @@ use App\Application\Actions\Controllers\PanelProfessor as Panel;
 
 return function (App $app) {
 
-    $app->options('/api', function (Request $request, Response $response) {
+    $app->options('/admin/actualizarProfesor', function (Request $request, Response $response) {
         // CORS Pre-Flight OPTIONS Request Handler
         return $response
                     ->withHeader('Access-Control-Allow-Origin', '*')
