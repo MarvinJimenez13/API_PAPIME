@@ -43,7 +43,7 @@ $app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();
 $app->add(new Tuupola\Middleware\CorsMiddleware([
     "origin" => ["*"],
-    "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     "headers.allow" => [],
     "headers.expose" => [],
     "credentials" => false,
