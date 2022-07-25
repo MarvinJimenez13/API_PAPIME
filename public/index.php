@@ -38,9 +38,9 @@ $container = $containerBuilder->build();
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 //TODO Cambiar en local a /apipapime/public y comentar Parsing
-$app->setBasePath("/public");
-$app->addBodyParsingMiddleware();
-$app->addRoutingMiddleware();
+$app->setBasePath("/apipapime/public");
+//$app->addBodyParsingMiddleware();
+//$app->addRoutingMiddleware();
 $app->add(new Tuupola\Middleware\CorsMiddleware([
     "origin" => ["*"],
     "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],

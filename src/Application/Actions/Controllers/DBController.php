@@ -4,10 +4,10 @@
 
 class DBController{
 
-    public $DB_HOST = "162.241.62.137"; //162.241.62.137
-    public $DB_USUARIO = "comer208"; //comer208
-    public $DB_CONTRASENA = "gus750819"; //gus750819
-    public $DB = "comer208_papime"; //comer208_papime
+    public $DB_HOST = "localhost"; //162.241.62.137
+    public $DB_USUARIO = "root"; //comer208  id19261929_admin
+    public $DB_CONTRASENA = ""; //gus750819 Apipapime_2022
+    public $DB = "papime"; //comer208_papime  id19261929_papime
     public $CHARSET = "UTF8";
     public $conexion;
 

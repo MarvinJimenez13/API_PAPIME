@@ -33,14 +33,14 @@ return function (App $app) {
         return $response->withStatus($data['response_code']);
     });
 
-    $app->put('/admin/eliminarProfesor', function(Request $request, Response $response){
+    $app->post('/admin/eliminarProfesor', function(Request $request, Response $response){
         $data = Admin::eliminarProfesor(json_encode($request->getParsedBody()));
         $response->getBody()->write(json_encode($data));
 
         return $response->withStatus($data['response_code']);
     });
 
-    $app->put('/admin/actualizarProfesor', function(Request $request, Response $response){
+    $app->post('/admin/actualizarProfesor', function(Request $request, Response $response){
         $data = Admin::updateProfessor(json_encode($request->getParsedBody()));
         $response->getBody()->write(json_encode($data));
 
@@ -64,9 +64,16 @@ return function (App $app) {
 
     /*PANEL JUEGO PROFESOR*/
 
+    $app->post('/profesor/login', function (Request $request, Response $response) {
+        $data = Login::loginProfesor($request->getParsedBody()['email'], $request->getParsedBody()['password']);
+        $response->getBody()->write(json_encode($data));
+
+        return $response->withStatus($data['response_code']);
+    });
+
     $app->post('/profesor/guardarJuego', function (Request $request, Response $response) {
         $data = Panel::saveGame(json_encode($request->getParsedBody()));
-        $response->getBody()->write(json_encode($data));
+        $response->getBody()->write(json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 
         return $response->withStatus($data['response_code']);
     });
