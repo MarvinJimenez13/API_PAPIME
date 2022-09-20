@@ -15,28 +15,77 @@ class PanelProfessor{
     public static $code;
     public static $linkParseGame;
 
-    public static function saveGame($data){
-        $jsonRequest = json_decode($data);
-
-        if($data != null && $jsonRequest->token != null){
+    public static function historyGames($token){
+        if($token != null){
             //Validar y obtener info de token
-            if(SecurityJWT::validateSignatureToken($jsonRequest->token)){
-                $dataToken = json_decode(SecurityJWT::decryptToken($jsonRequest->token));
+            if(SecurityJWT::validateSignatureToken($token)){
+                $dataToken = json_decode(SecurityJWT::decryptToken($token));
                 if($dataToken->tipo_usuario == "PROFESSOR"){//cambiar a profesor cuando tengamos login
+                    $db = new DBController();
+                    $conexion = $db->getConexion();
+
+                    //creamos objeto historial
+                    $historial = array();
+
+                    //Consultamos tabla sessions
+                    $querySessions = $conexion->query("SELECT * FROM sessions WHERE id_professor = '$dataToken->id'");
+                    if($querySessions){
+                        while($row = mysqli_fetch_array($querySessions)){
+                            $arraySession = array(
+                                "idSession" => $row['id_sessions'],
+                                "grupo" => $row['group_num'],
+                                "situacionEnsenanza" => $row['teaching_situation'],
+                                "materia" => $row['course'],
+                                "nombreSesion" => $row['session_name'],
+                                "expiracion" => $row['expiration'],
+                                "link" => $row['link'],
+                                "code" => $row['code'] 
+                            );
+
+                            array_push($historial, $arraySession);
+                        }
+
+                        $dataHistory = array("history" => $historial);
+                        PanelProfessor::$response = ResponseBody::setResponse($dataHistory, Constants::$OK_HISTORY, ResponseBody::$OK);
+                    }else
+                        LoginController::$response = ResponseBody::setResponse(null, Constants::$ERROR_DB, ResponseBody::$INTERNAL_SERVER_ERROR);
+                }else
+                    PanelProfessor::$response = ResponseBody::setResponse(null, Constants::$ERROR_REQUEST, ResponseBody::$BAD_REQUEST);
+            }else
+                PanelProfessor::$response = ResponseBody::setResponse(null, Constants::$ERROR_TOKEN, ResponseBody::$BAD_REQUEST);
+        }else
+            PanelProfessor::$response = ResponseBody::setResponse(null, Constants::$ERROR_REQUEST, ResponseBody::$BAD_REQUEST);
+
+        return PanelProfessor::$response;
+    }
+
+    public static function saveGame($data){
+        $dataJSON = array("data" => json_decode($data));
+        
+        
+        if($data != null && $dataJSON['data']->token != null){
+            //Validar y obtener info de token
+            
+            if(SecurityJWT::validateSignatureToken($dataJSON['data']->token)){
+                $dataToken = json_decode(SecurityJWT::decryptToken($dataJSON['data']->token));
+                
+                
+                if($dataToken->tipo_usuario == "PROFESSOR"){//cambiar a profesor cuando tengamos login
+                    
                     //GENERAMOS LINK Y CODIGO
                     $code = PanelProfessor::getCodeGame();
                     PanelProfessor::$code = $code;
                     $linkGame = "https://papime.unam.mx/juego/".$code;
                     PanelProfessor::$linkParseGame = "https:/"."/"."papime.unam.mx"."/"."juego"."/".$code;
-
+                    
                     //GUARDAMOS DATOS EN SESSIONS
                     $db = new DBController();
                     $conexion = $db->getConexion();
-
-                    $response = PanelProfessor::saveSessions($conexion, $jsonRequest, $linkGame, $code, $dataToken->id);
+                    
+                    $response = PanelProfessor::saveSessions($conexion, $dataJSON['data'], $linkGame, $code, $dataToken->id);
                     if($response != -1){
                         //PROCESAMOS GAME
-                        $responseGame = PanelProfessor::processRooms($conexion, json_decode($jsonRequest->game), $response);
+                        $responseGame = PanelProfessor::processRooms($conexion, $dataJSON['data']->game, $response);
                     }else 
                         PanelProfessor::$response = ResponseBody::setResponse(null, "Error al guardar datos", ResponseBody::$BAD_REQUEST); //ERROR POR DEFINIR
                 }else
@@ -44,14 +93,17 @@ class PanelProfessor{
             }else
                 PanelProfessor::$response = ResponseBody::setResponse(null, Constants::$ERROR_TOKEN, ResponseBody::$BAD_REQUEST);
         }else 
-            PanelProfessor::$response = ResponseBody::setResponse(null, Constants::$ERROR_REQUEST, ResponseBody::$BAD_REQUEST);
+            PanelProfessor::$response = ResponseBody::setResponse($dataJSON['data']->token, Constants::$ERROR_REQUEST, ResponseBody::$BAD_REQUEST);
         
-        return PanelProfessor::$response;
+        return json_encode(PanelProfessor::$response);
+
+        //return $dataJSON['data']->game->sala1->name;
     }
 
     public static function processRooms($conexion, $jsonRequest, $idSession){
         //VALIDAR SALA1
         $idSala1 = PanelProfessor::saveRoom($conexion, $jsonRequest->sala1, $idSession);
+        PanelProfessor::$response = ResponseBody::setResponse(null, "pkas7", ResponseBody::$OK);
         if($idSala1 != 1){
         
             //VALIDAMOS PREGUNTAS
@@ -111,6 +163,7 @@ class PanelProfessor{
             PanelProfessor::saveResponses($conexion, $idQuestion, $questionInfo->responses);
         }
 
+        
         PanelProfessor::$response = ResponseBody::setResponse(
             array("code" => PanelProfessor::$code, "link" => utf8_encode(PanelProfessor::$linkParseGame)),
             "Datos guardados correctamente.",

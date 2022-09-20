@@ -1,13 +1,13 @@
 <?php 
 
-//include_once '../servicios/Constants.php';
+include_once '../servicios/Constants.php';
 
 class DBController{
 
     public $DB_HOST = "localhost"; //162.241.62.137
-    public $DB_USUARIO = "root"; //comer208  id19261929_admin
-    public $DB_CONTRASENA = ""; //gus750819 Apipapime_2022
-    public $DB = "papime"; //comer208_papime  id19261929_papime
+    public $DB_USUARIO = "root"; //  id19261929_admin
+    public $DB_CONTRASENA = ""; // Apipapime_2022
+    public $DB = "papime"; //  id19261929_papime
     public $CHARSET = "UTF8";
     public $conexion;
 

@@ -64,6 +64,13 @@ return function (App $app) {
 
     /*PANEL JUEGO PROFESOR*/
 
+    $app->get('/profesor/historialJuegos', function(Request $request, Response $response){
+        $data = Panel::historyGames($request->getQueryParams("token")['token']);
+        $response->getBody()->write(json_encode($data));
+
+        return $response->withStatus($data['response_code']);
+    });
+
     $app->post('/profesor/login', function (Request $request, Response $response) {
         $data = Login::loginProfesor($request->getParsedBody()['email'], $request->getParsedBody()['password']);
         $response->getBody()->write(json_encode($data));
@@ -71,11 +78,21 @@ return function (App $app) {
         return $response->withStatus($data['response_code']);
     });
 
-    $app->post('/profesor/guardarJuego', function (Request $request, Response $response) {
-        $data = Panel::saveGame(json_encode($request->getParsedBody()));
-        $response->getBody()->write(json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+    $app->post('/profesor/guardarJuego', function (Request $request, Response $response, array $args) {
+        $data = Panel::saveGame($request->getBody()->getContents());
+        $response->getBody()->write($data);
+        //$data = $request->getBody()->getContents();
+        //$response->getBody()->write($data);
 
-        return $response->withStatus($data['response_code']);
+        return $response->withStatus(200);
+    });
+
+    $app->post('/profesor/demo', function (Request $request, Response $response, array $args) {
+        //$data = Panel::saveGame(json_encode($request->));
+        $data = $request->getBody()->getContents();
+        $response->getBody()->write($data);
+
+        return $response->withStatus(200);
     });
 
 

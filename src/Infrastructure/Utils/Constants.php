@@ -5,6 +5,7 @@ namespace App\Infrastructure\Utils;
 class Constants{
 
     //SUCCESS
+    public static $OK_HISTORY = "Historial listado correctamente.";
     public static $LOGIN_SUCCESS = "Usuario logueado correctamente.";
     public static $USER_NOT_FOUND = "Usuario no encontrado.";
     public static $REGISTER_PROFESSOR_SUCCESS = "Profesor registrado correctamente.";
