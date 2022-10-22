@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Application\Actions\Controllers\LoginController as Login;
 use App\Application\Actions\Controllers\AdminController as Admin;
 use App\Application\Actions\Controllers\PanelProfessor as Panel;
+use App\Application\Actions\Controllers\AlumnosController as Alumnos;
 
 return function (App $app) {
 
@@ -61,7 +62,6 @@ return function (App $app) {
         return $response->withStatus($data['response_code']);
     });
 
-
     /*PANEL JUEGO PROFESOR*/
 
     $app->get('/profesor/historialJuegos', function(Request $request, Response $response){
@@ -95,5 +95,12 @@ return function (App $app) {
         return $response->withStatus(200);
     });
 
+    /*JUEGO ALUMNOS*/
+    $app->get('/alumnos/juego', function(Request $request, Response $response){
+        $data = Alumnos::getJuego($request->getQueryParams("codigo")['codigo']);
+        $response->getBody()->write(json_encode($data));
+
+        return $response->withStatus($data['response_code']);
+    });
 
 };

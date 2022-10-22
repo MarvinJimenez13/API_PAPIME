@@ -1,6 +1,7 @@
 <?php 
 
-include_once '../servicios/Constants.php';
+
+include_once 'DBController.php';
 
 class DBController{
 

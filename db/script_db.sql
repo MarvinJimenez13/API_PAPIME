@@ -1,3 +1,57 @@
+repository.checkColorGuardado(result ->{
+    if(result.isSuccessfull()){
+        checkColorFavorito.postValue(result.getData());
+    }else{
+        HttpException resultError = (HttpException) result.getError();
+        if(resultError.code() == 401){
+            if(count > 0){
+                count--;
+                FirebaseUtils firebase = new FirebaseUtils();
+                if(firebase.existSession() &&
+                        PreferencesUtils.getDataProfile(ColorBerelApp.getInstance()).getToken() != null
+                        && AndroidUtils.isNetworkAvailable(ColorBerelApp.getInstance())
+                        && PreferencesUtils.getDataProfile(ColorBerelApp.getInstance()).getToken() != ""){
+
+                    FirebaseAuth.getInstance().getCurrentUser().getIdToken(true).addOnSuccessListener(task -> {
+                        if(task.getToken() != PreferencesUtils.getDataProfile(ColorBerelApp.getInstance()).getToken()){
+                            updateSessionToken(PreferencesUtils.getDataProfile(ColorBerelApp.getInstance()).getToken(), task.getToken(), ColorBerelApp.getInstance());
+                            repository.updateSessionToken(resultUpdate -> {
+                                if(resultUpdate.getData() != null){//guardamos nevo token
+                                    if(resultUpdate.getData().getSuccess()){
+                                        Log.d("logtoken", "EXITO: " + task.getToken());
+                                        PreferencesUtils.saveNewToken(task.getToken(), ColorBerelApp.getInstance());
+                                        checkColorGuardado(task.getToken(), idColor, layoutInflater);
+                                    }else{
+                                        count = 1;
+                                        firebaseUtils.logout();
+                                    }
+                                }else{
+                                    //Cerramos sesion
+                                    count = 1;
+                                    firebaseUtils.logout();
+                                    Log.d("logtoken", "ERROR: " + result.getError().getMessage());
+                                }
+                            }, PreferencesUtils.getDataProfile(ColorBerelApp.getInstance()).getToken(), task.getToken());
+                            Log.d("tagtoken", "\n Old: " + PreferencesUtils.getDataProfile(ColorBerelApp.getInstance()).getToken());
+                            Log.d("tagtoken", "New: " + task.getToken());
+                        }
+                    });
+
+                }
+            }else{
+                //cerrar sesion
+                firebaseUtils.logout();
+                count = 1;
+            }
+        }else{
+            error.postValue(new DataException(result.getError()));
+        }
+    }
+
+    loader.postValue(false);
+}, token, idColor);
+
+
 -- 08/07/2022
 -- Model: comer208_PAPIME Model    Version: 0.1.0
 
